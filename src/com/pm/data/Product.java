@@ -27,29 +27,43 @@ public class Product {
     private BigDecimal price;
     private Rating rating;
 
+    public Product(){
+        this(0, "No name", BigDecimal.ZERO);
+    }
+
+    public Product(int id, String name, BigDecimal price, Rating rating) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.rating = rating;
+    }
+
+    public Product(int id, String name, BigDecimal price) {
+        this(id, name, price, Rating.NOT_RATED);
+    }
+
     public int getId() {
         return id;
     }
-
-    public void setId(int id) {
+/*    public void setId(int id) {
         this.id = id;
-    }
+    }*/
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+/*    public void setName(String name) {
         this.name = name;
-    }
+    }*/
 
     public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+/*    public void setPrice(BigDecimal price) {
         this.price = price;
-    }
+    }*/
 
     /**
      * Calculates discount based on a product price and
@@ -66,5 +80,9 @@ public class Product {
      */
     public Rating getRating() {
         return rating;
+    }
+
+    public Product applyingRating(Rating newRating){
+        return new Product(this.id, this.name, this.price, newRating);
     }
 }
