@@ -2,9 +2,11 @@ package com.pm.data;
 
 import java.math.BigDecimal;
 
+import static java.math.RoundingMode.HALF_UP;
+
 public class Product {
 
-    private static final BigDecimal DISCOUNT_RATE = BigDecimal.valueOf(0.1);
+    public static final BigDecimal DISCOUNT_RATE = BigDecimal.valueOf(0.1);
     private int id;
     private String name;
     private BigDecimal price;
@@ -31,5 +33,9 @@ public class Product {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public BigDecimal getDiscount() {
+        return price.multiply(DISCOUNT_RATE).setScale(2, HALF_UP);
     }
 }
