@@ -25,6 +25,7 @@ public class Product {
     private int id;
     private String name;
     private BigDecimal price;
+    private Rating rating;
 
     public int getId() {
         return id;
@@ -58,5 +59,12 @@ public class Product {
      */
     public BigDecimal getDiscount() {
         return price.multiply(DISCOUNT_RATE).setScale(2, HALF_UP);
+    }
+
+    /**
+     *
+     */
+    public Rating getRating() {
+        return rating;
     }
 }
