@@ -5,6 +5,8 @@ import com.pm.data.Product;
 import java.math.BigDecimal;
 
 /**
+ * {@code Shop} class represents an application that manages Products
+ * @version 4.0
  * @author Sangha
  */
 public class Shop {
