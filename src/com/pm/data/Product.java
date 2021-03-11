@@ -14,7 +14,7 @@ import static java.math.RoundingMode.HALF_UP;
  * @version 4.0
  * @author Sangha
  */
-public class Product {
+public abstract class Product {
 
     /**
      * A constant that defines a
@@ -80,9 +80,9 @@ public class Product {
         return rating;
     }
 
-    public Product applyingRating(Rating newRating){
+    public abstract Product applyingRating(Rating newRating);/*{
         return new Product(this.id, this.name, this.price, newRating);
-    }
+    }*/
 
     @Override
     public String toString() {
