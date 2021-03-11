@@ -97,9 +97,12 @@ public class Product {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return id == product.id && Objects.equals(name, product.name);
+        //if (o == null || getClass() != o.getClass()) return false;
+        if(o instanceof Product){
+            Product product = (Product) o;
+            return id == product.id && Objects.equals(name, product.name);
+        }
+        return false;
     }
 
     @Override
