@@ -15,7 +15,7 @@ import static java.math.RoundingMode.HALF_UP;
  * @version 4.0
  * @author Sangha
  */
-public abstract class Product {
+public abstract class Product implements Rateable<Product>{
 
     /**
      * A constant that defines a
@@ -77,6 +77,7 @@ public abstract class Product {
         return price.multiply(DISCOUNT_RATE).setScale(2, HALF_UP);
     }
 
+    @Override
     public Rating getRating() {
         return rating;
     }
@@ -90,7 +91,7 @@ public abstract class Product {
         return LocalDate.now();
     }
 
-    public abstract Product applyingRating(Rating newRating);/*{
+    /*public abstract Product applyRating(Rating newRating);*//*{
         return new Product(this.id, this.name, this.price, newRating);
     }*/
 
