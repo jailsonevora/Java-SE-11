@@ -1,6 +1,7 @@
 package com.pm.data;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import static java.math.RoundingMode.HALF_UP;
@@ -78,6 +79,15 @@ public abstract class Product {
 
     public Rating getRating() {
         return rating;
+    }
+
+    /**
+     * Get the value of the best before date for the product
+     *
+     * @return the value of the bestBefore
+     */
+    public LocalDate getBestBefore() {
+        return LocalDate.now();
     }
 
     public abstract Product applyingRating(Rating newRating);/*{
