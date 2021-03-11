@@ -32,7 +32,7 @@ public class Shop {
         Product p9 = p1.applyingRating(Rating.TWO_STAR);
         System.out.println(p6.equals(p7));
 
-       /* System.out.println(p1.getBestBefore());
+        /* System.out.println(p1.getBestBefore());
         System.out.println(p3.getBestBefore());*/
 
         /*p1.setId(101);
