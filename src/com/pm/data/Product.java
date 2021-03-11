@@ -96,12 +96,12 @@ public abstract class Product {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", rating=" + rating +
-                '}';
+        return id +
+                ", " + name +
+                ", " + price +
+                ", " + getDiscount() +
+                ", " + rating.getStars() +
+                ", " + getBestBefore();
     }
 
     @Override
