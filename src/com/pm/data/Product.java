@@ -1,6 +1,7 @@
 package com.pm.data;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import static java.math.RoundingMode.HALF_UP;
 
@@ -91,5 +92,18 @@ public class Product {
                 ", price=" + price +
                 ", rating=" + rating +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return id == product.id && Objects.equals(name, product.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

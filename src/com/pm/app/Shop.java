@@ -26,6 +26,10 @@ public class Shop {
         Product p3 = new Food(103,"Cake",BigDecimal.valueOf(1.99), Rating.FIVE_STAR, LocalDate.now().plusDays(2));
         Product p4 = new Product();
         Product p5 = p3.applyingRating(Rating.THREE_STAR);
+        Product p6 = new Drink(104,"Chocolate",BigDecimal.valueOf(2.99), Rating.FIVE_STAR);
+        Product p7 = new Food(104,"Chocolate",BigDecimal.valueOf(2.99), Rating.FIVE_STAR, LocalDate.now().plusDays(2));
+        System.out.println(p6.equals(p7));
+
 
         /*p1.setId(101);
         p1.setName("Tea");
