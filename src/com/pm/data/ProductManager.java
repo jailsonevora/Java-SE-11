@@ -73,7 +73,7 @@ public class ProductManager {
                     review.getComments()));
             txt.append('\n');
         }
-        if(reviews[0] != null){
+        if(reviews[0] == null){
             txt.append(resources.getString("no.reviews"));
             txt.append('\n');
         }
