@@ -63,6 +63,7 @@ public class ProductManager {
         // review = new Review(rating, comments);
         // this.product = product.applyRating(rating);
         product = product.applyRating(Rateable.convert(Math.round((float) sum / reviews.size())));
+        products.put(product, reviews);
         return product;
     }
 
