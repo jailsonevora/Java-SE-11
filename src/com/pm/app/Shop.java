@@ -70,9 +70,13 @@ public class Shop {
 //        pm.printProductReport(106);
 
         Comparator<Product> ratingSorter = (p1, p2) -> p2.getRating().ordinal() - p1.getRating().ordinal();
-        pm.printProducts(ratingSorter);
+        Comparator<Product> priceSorter = (p1,p2) -> p2.getPrice().compareTo(p1.getPrice());
+        pm.printProducts(ratingSorter.thenComparing(priceSorter));
+        pm.printProducts(ratingSorter.thenComparing(priceSorter).reversed());
+//        pm.printProducts(ratingSorter);
+//        pm.printProducts(priceSorter);
 //        pm.printProducts((p1,p2) -> p2.getRating().ordinal() - p1.getRating().ordinal());
-        pm.printProducts((p1,p2) -> p2.getPrice().compareTo(p1.getPrice()));
+//        pm.printProducts((p1,p2) -> p2.getPrice().compareTo(p1.getPrice()));
 
 
         /*Product p2 = pm.createProduct(102,"Coffee",BigDecimal.valueOf(1.99), Rating.FOUR_STAR);
