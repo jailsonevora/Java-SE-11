@@ -108,16 +108,17 @@ public abstract class Product implements Rateable<Product>{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        //if (o == null || getClass() != o.getClass()) return false;
         if(o instanceof Product){
-            Product product = (Product) o;
-            return id == product.id && Objects.equals(name, product.name);
+            final Product product = (Product) o;
+            return this.id == product.id/* && Objects.equals(name, product.name)*/;
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        int hash = 5;
+        hash = 61 * hash + this.id;
+        return hash;
     }
 }
