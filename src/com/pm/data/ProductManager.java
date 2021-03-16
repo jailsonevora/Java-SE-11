@@ -58,6 +58,7 @@ public class ProductManager {
                 product.getRating().getStars(),
                 dateFormat.format(product.getBestBefore())));
         txt.append('\n');
+        Collections.sort(reviews);
         if(reviews.isEmpty()){
             txt.append(resources.getString("no.reviews"));
             txt.append('\n');
