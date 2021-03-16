@@ -16,8 +16,6 @@ public class ProductManager {
     private NumberFormat moneyFormat;
 
     private Map<Product, List<Review>> products = new HashMap<>();
-    /*private Product product;
-    private Review[] reviews = new Review[5];*/
 
     public ProductManager(Locale locale) {
         this.locale = locale;
@@ -38,9 +36,6 @@ public class ProductManager {
     }
 
     public Product reviewProduct(Product product, Rating rating, String comments){
-        /*if(reviews[reviews.length - 1] != null){
-            reviews = Arrays.copyOf(reviews, reviews.length + 5);
-        }*/
         List<Review> reviews = products.get(product);
         products.remove(product, reviews);
         reviews.add(new Review(rating, comments));
@@ -48,20 +43,6 @@ public class ProductManager {
         for (Review review: reviews){
             sum += review.getRating().ordinal();
         }
-
-        /*int sum = 0, i = 0;
-        boolean reviewed = false;
-        while (i < reviews.length && !reviewed){
-            if (reviews[i] == null){
-                reviews[i] = new Review(rating, comments);
-                reviewed = true;
-            }
-            sum += reviews[i].getRating().ordinal();
-            i++;
-        }*/
-
-        // review = new Review(rating, comments);
-        // this.product = product.applyRating(rating);
         product = product.applyRating(Rateable.convert(Math.round((float) sum / reviews.size())));
         products.put(product, reviews);
         return product;
