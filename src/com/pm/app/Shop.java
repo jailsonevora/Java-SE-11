@@ -19,7 +19,7 @@ public class Shop {
      */
     public static void main(String[] args){
 
-        ProductManager pm = new ProductManager(Locale.UK);
+        ProductManager pm = new ProductManager("en-US");
 
         pm.createProduct(101,"Tea",BigDecimal.valueOf(1.99), Rating.NOT_RATED);
         pm.printProductReport(101);
@@ -31,6 +31,8 @@ public class Shop {
         pm.reviewProduct(101, Rating.FIVE_STAR, "Perfect tea");
         pm.reviewProduct(101, Rating.THREE_STAR, "Just add some lemon");
         pm.printProductReport(101);
+
+        pm.changeLocale("ru-RU");
 
         pm.createProduct(102,"Coffee",BigDecimal.valueOf(1.99), Rating.NOT_RATED);
         pm.printProductReport(102);
