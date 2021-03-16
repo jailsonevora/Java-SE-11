@@ -36,6 +36,10 @@ public class ProductManager {
         return product;
     }
 
+    public Product reviewProduct(int id, Rating rating, String comments){
+        return reviewProduct(findProduct(id), rating, comments);
+    }
+
     public Product reviewProduct(Product product, Rating rating, String comments){
         List<Review> reviews = products.get(product);
         products.remove(product, reviews);
@@ -47,6 +51,9 @@ public class ProductManager {
         product = product.applyRating(Rateable.convert(Math.round((float) sum / reviews.size())));
         products.put(product, reviews);
         return product;
+    }
+    public void printProductReport(int id){
+        printProductReport(findProduct(id));
     }
 
     public void printProductReport(Product product){
@@ -70,5 +77,16 @@ public class ProductManager {
             txt.append('\n');
         }
         System.out.println(txt);
+    }
+    
+    public Product findProduct(int id){
+        Product result = null;
+        for (Product product : products.keySet()) {
+            if (product.getId() == id){
+                result = product;
+                break;
+            }
+        }
+        return result;
     }
 }
