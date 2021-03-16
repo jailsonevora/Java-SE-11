@@ -44,8 +44,12 @@ public class ProductManager {
         List<Review> reviews = products.get(product);
         products.remove(product, reviews);
         reviews.add(new Review(rating, comments));
+        int sum = 0;
+        for (Review review: reviews){
+            sum += review.getRating().ordinal();
+        }
 
-        int sum = 0, i = 0;
+        /*int sum = 0, i = 0;
         boolean reviewed = false;
         while (i < reviews.length && !reviewed){
             if (reviews[i] == null){
@@ -54,7 +58,7 @@ public class ProductManager {
             }
             sum += reviews[i].getRating().ordinal();
             i++;
-        }
+        }*/
 
         // review = new Review(rating, comments);
         // this.product = product.applyRating(rating);
