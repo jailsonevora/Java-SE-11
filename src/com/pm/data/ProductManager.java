@@ -32,6 +32,7 @@ public class ProductManager {
 
     public Product createProduct(int id, String name, BigDecimal price, Rating rating){
         Product product = new Drink(id,name,price, rating);
+        products.putIfAbsent(product, new ArrayList<>());
         return product;
     }
 
@@ -57,14 +58,14 @@ public class ProductManager {
                 product.getRating().getStars(),
                 dateFormat.format(product.getBestBefore())));
         txt.append('\n');
+        if(reviews.isEmpty()){
+            txt.append(resources.getString("no.reviews"));
+            txt.append('\n');
+        }
         for (Review review : reviews){
             txt.append(MessageFormat.format(resources.getString("review"),
                     review.getRating().getStars(),
                     review.getComments()));
-            txt.append('\n');
-        }
-        if(reviews.isEmpty()){
-            txt.append(resources.getString("no.reviews"));
             txt.append('\n');
         }
         System.out.println(txt);
