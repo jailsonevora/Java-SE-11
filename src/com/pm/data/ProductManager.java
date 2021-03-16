@@ -48,7 +48,8 @@ public class ProductManager {
         return product;
     }
 
-    public void printProductReport(){
+    public void printProductReport(Product product){
+        List<Review> reviews = products.get(product);
         StringBuilder txt = new StringBuilder();
         txt.append(MessageFormat.format(resources.getString("product"),
                 product.getName(),
@@ -57,13 +58,12 @@ public class ProductManager {
                 dateFormat.format(product.getBestBefore())));
         txt.append('\n');
         for (Review review : reviews){
-            if(review == null) break;
             txt.append(MessageFormat.format(resources.getString("review"),
                     review.getRating().getStars(),
                     review.getComments()));
             txt.append('\n');
         }
-        if(reviews[0] == null){
+        if(reviews.isEmpty()){
             txt.append(resources.getString("no.reviews"));
             txt.append('\n');
         }
