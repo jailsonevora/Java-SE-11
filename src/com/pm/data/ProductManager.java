@@ -43,6 +43,8 @@ public class ProductManager {
         }*/
         List<Review> reviews = products.get(product);
         products.remove(product, reviews);
+        reviews.add(new Review(rating, comments));
+
         int sum = 0, i = 0;
         boolean reviewed = false;
         while (i < reviews.length && !reviewed){
