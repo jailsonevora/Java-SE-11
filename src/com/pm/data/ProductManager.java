@@ -117,7 +117,7 @@ public class ProductManager {
         System.out.println(txt);
     }
 
-    public Map<String, String> getDiscount(){
+    public Map<String, String> getDiscounts(){
         return products.keySet()
                 .stream()
                 .collect(
