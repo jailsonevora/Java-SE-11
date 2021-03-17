@@ -80,13 +80,14 @@ public class ProductManager {
     }
     
     public Product findProduct(int id){
-        Product result = null;
+        /*Product result = null;
         for (Product product : products.keySet()) {
             if (product.getId() == id){
                 result = product;
                 break;
             }
         }
-        return result;
+        return result;*/
+
     }
 }
