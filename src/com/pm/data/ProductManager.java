@@ -57,11 +57,22 @@ public class ProductManager {
         List<Review> reviews = products.get(product);
         products.remove(product, reviews);
         reviews.add(new Review(rating, comments));
-        int sum = 0;
+        /*int sum = 0;
         for (Review review: reviews){
             sum += review.getRating().ordinal();
         }
         product = product.applyRating(Rateable.convert(Math.round((float) sum / reviews.size())));
+        */
+        product = product.applyRating(
+                Rateable.convert(
+                        (int) Math.round(
+                                reviews.stream()
+                                .mapToInt(r -> r.getRating().ordinal())
+                                .average()
+                                .orElse(0)
+                        )
+                )
+        );
         products.put(product, reviews);
         return product;
     }
@@ -75,14 +86,15 @@ public class ProductManager {
         txt.append(formatter.formatProduct(product));
         txt.append('\n');
         Collections.sort(reviews);
-        if(reviews.isEmpty()){
-            txt.append(formatter.getText("no.reviews"));
-            txt.append('\n');
+        if(reviews.isEmpty())
+            txt.append(formatter.getText("no.reviews") + '\n');
+        else {
+
         }
-        for (Review review : reviews){
+        /*for (Review review : reviews){
             txt.append(formatter.formatReview(review));
             txt.append('\n');
-        }
+        }*/
         System.out.println(txt);
     }
 
