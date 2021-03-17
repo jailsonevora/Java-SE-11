@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class ProductManager {
@@ -100,14 +101,19 @@ public class ProductManager {
                 .orElseGet(() -> null);
     }
 
-    public void printProducts(Comparator<Product> sorter){
-        List<Product> productList = new ArrayList<>(products.keySet());
-        productList.sort(sorter);
+    public void printProducts(Predicate<Product> filter, Comparator<Product> sorter){
+        /*List<Product> productList = new ArrayList<>(products.keySet());
+        productList.sort(sorter);*/
         StringBuilder txt = new StringBuilder();
-        for (Product product : productList) {
+        products.keySet()
+                .stream()
+                .sorted()
+                .filter(filter)
+                .forEach(p -> txt.append(formatter.formatProduct(p) + '\n'));
+        /*for (Product product : productList) {
             txt.append(formatter.formatProduct(product));
             txt.append("\n");
-        }
+        }*/
         System.out.println(txt);
     }
 
