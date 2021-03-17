@@ -95,7 +95,11 @@ public class ProductManager {
             }
         }
         return result;*/
-
+        return products.keySet()
+                .stream()
+                .filter(p -> p.getId() == id)
+                .findFirst()
+                .orElseGet(() -> null);
     }
 
     public void printProducts(Comparator<Product> sorter){
