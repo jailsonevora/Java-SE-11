@@ -107,7 +107,7 @@ public class ProductManager {
         StringBuilder txt = new StringBuilder();
         products.keySet()
                 .stream()
-                .sorted()
+                .sorted(sorter)
                 .filter(filter)
                 .forEach(p -> txt.append(formatter.formatProduct(p) + '\n'));
         /*for (Product product : productList) {
@@ -115,6 +115,19 @@ public class ProductManager {
             txt.append("\n");
         }*/
         System.out.println(txt);
+    }
+
+    public Map<String, String> getDiscount(){
+        return products.keySet()
+                .stream()
+                .collect(
+                        Collectors.groupingBy(
+                                product -> product.getRating().getStars(),
+                                Collectors.collectingAndThen(
+                                                Collectors.summingDouble(
+                                                        product -> product.getDiscount().doubleValue()
+                                                ),
+                                        discount -> formatter.moneyFormat.format(discount))));
     }
 
     private static class ResourceFormatter{
