@@ -58,12 +58,6 @@ public class ProductManager {
         List<Review> reviews = products.get(product);
         products.remove(product, reviews);
         reviews.add(new Review(rating, comments));
-        /*int sum = 0;
-        for (Review review: reviews){
-            sum += review.getRating().ordinal();
-        }
-        product = product.applyRating(Rateable.convert(Math.round((float) sum / reviews.size())));
-        */
         product = product.applyRating(
                 Rateable.convert(
                         (int) Math.round(
@@ -95,22 +89,10 @@ public class ProductManager {
                     .collect(Collectors.joining())
             );
         }
-        /*for (Review review : reviews){
-            txt.append(formatter.formatReview(review));
-            txt.append('\n');
-        }*/
         System.out.println(txt);
     }
 
     public Product findProduct(int id){
-        /*Product result = null;
-        for (Product product : products.keySet()) {
-            if (product.getId() == id){
-                result = product;
-                break;
-            }
-        }
-        return result;*/
         return products.keySet()
                 .stream()
                 .filter(p -> p.getId() == id)
