@@ -57,6 +57,7 @@ public class ProductManager {
         } catch (ProductManagerException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public Product reviewProduct(Product product, Rating rating, String comments){
@@ -78,7 +79,11 @@ public class ProductManager {
     }
 
     public void printProductReport(int id){
-        printProductReport(findProduct(id));
+        try {
+            printProductReport(findProduct(id));
+        } catch (ProductManagerException e) {
+            e.printStackTrace();
+        }
     }
     public void printProductReport(Product product){
         List<Review> reviews = products.get(product);
