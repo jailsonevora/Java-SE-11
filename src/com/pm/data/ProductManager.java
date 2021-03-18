@@ -6,6 +6,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 import java.util.*;
 import java.util.function.Predicate;
@@ -140,6 +141,15 @@ public class ProductManager {
             Object[] values = reviewFormat.parse(text);
             reviewProduct(Integer.parseInt((String) values[0]), Rateable.convert(Integer.parseInt((String)values[1])), (String)values[2]);
         } catch (ParseException | NumberFormatException e) {
+            logger.log(Level.WARNING, "Error parsing review"+text);
+        }
+    }
+
+    public void parseProduct(String text){
+        try {
+            Object[] values = productFormat.parse(text);
+            //reviewProduct(Integer.parseInt((String) values[0]), Rateable.convert(Integer.parseInt((String)values[1])), (String)values[2]);
+        } catch (ParseException | NumberFormatException | DateTimeParseException e) {
             logger.log(Level.WARNING, "Error parsing review"+text);
         }
     }
