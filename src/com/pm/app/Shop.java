@@ -25,12 +25,14 @@ public class Shop {
         pm.createProduct(101,"Tea",BigDecimal.valueOf(1.99), Rating.NOT_RATED);
         pm.printProductReport(101);
 
-        pm.reviewProduct(101, Rating.FOUR_STAR, "Nice hot cup of tea");
+        pm.parseReview("101,4,Nice hot cup of tea");
+
+        /*pm.reviewProduct(101, Rating.FOUR_STAR, "Nice hot cup of tea");
         pm.reviewProduct(101, Rating.TWO_STAR, "Rather weak tea");
         pm.reviewProduct(101, Rating.FOUR_STAR, "Fine tea");
         pm.reviewProduct(101, Rating.FOUR_STAR, "Good tea");
         pm.reviewProduct(101, Rating.FIVE_STAR, "Perfect tea");
-        pm.reviewProduct(101, Rating.THREE_STAR, "Just add some lemon");
+        pm.reviewProduct(101, Rating.THREE_STAR, "Just add some lemon");*/
         pm.printProductReport(101);
 //
 ////        pm.changeLocale("ru-RU");

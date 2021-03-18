@@ -18,7 +18,7 @@ public class ProductManager {
 
     private Map<Product, List<Review>> products = new HashMap<>();
     private ResourceFormatter formatter;
-    private ResourceBundle config = ResourceBundle.getBundle("labs.pm.data.config");
+    private ResourceBundle config = ResourceBundle.getBundle("com.pm.data.config");
     private MessageFormat reviewFormat = new MessageFormat(config.getString("review.data.format"));
     private MessageFormat productFormat = new MessageFormat(config.getString("product.data.format"));
     private static Map<String, ResourceFormatter> formatters = Map.of("en-GB", new ResourceFormatter(Locale.UK),
