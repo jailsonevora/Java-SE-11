@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class ProductManager {
@@ -22,6 +24,8 @@ public class ProductManager {
             "ru-RU", new ResourceFormatter(new Locale("ru", "Ru")),
             "zh-CN", new ResourceFormatter(Locale.CHINA)
             );
+
+    private static final Logger logger = Logger.getLogger(ProductManager.class.getName());
 
     public ProductManager(Locale locale) {
         this(locale.toLanguageTag());
@@ -55,7 +59,7 @@ public class ProductManager {
         try {
             return reviewProduct(findProduct(id), rating, comments);
         } catch (ProductManagerException e) {
-            e.printStackTrace();
+            logger.log(Level.INFO, e.getMessage());
         }
         return null;
     }
@@ -82,7 +86,7 @@ public class ProductManager {
         try {
             printProductReport(findProduct(id));
         } catch (ProductManagerException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, null, e);
         }
     }
     public void printProductReport(Product product){
