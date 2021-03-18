@@ -98,7 +98,8 @@ public class ProductManager {
                 .stream()
                 .filter(p -> p.getId() == id)
                 .findFirst()
-                .orElseGet(() -> null);
+                //.orElseGet(() -> null)
+                .get();
     }
 
     public void printProducts(Predicate<Product> filter, Comparator<Product> sorter){
