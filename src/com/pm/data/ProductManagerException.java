@@ -1,6 +1,16 @@
 package com.pm.data;
 
-public class ProductManagerException ex{
+public class ProductManagerException extends Exception{
 
-    p
+    public ProductManagerException(){
+        super();
+    }
+
+    public ProductManagerException(String message){
+        super(message);
+    }
+
+    public ProductManagerException(String message, Throwable cause){
+        super(message, cause);
+    }
 }
