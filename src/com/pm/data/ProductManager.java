@@ -93,13 +93,14 @@ public class ProductManager {
         System.out.println(txt);
     }
 
-    public Product findProduct(int id){
+    public Product findProduct(int id) throws ProductManagerException {
         return products.keySet()
                 .stream()
                 .filter(p -> p.getId() == id)
                 .findFirst()
+                .orElseThrow(() -> new ProductManagerException("Product with id "+id+" not found"));
                 //.orElseGet(() -> null)
-                .get();
+                //.get();
     }
 
     public void printProducts(Predicate<Product> filter, Comparator<Product> sorter){
