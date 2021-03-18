@@ -52,7 +52,11 @@ public class ProductManager {
     }
 
     public Product reviewProduct(int id, Rating rating, String comments){
-        return reviewProduct(findProduct(id), rating, comments);
+        try {
+            return reviewProduct(findProduct(id), rating, comments);
+        } catch (ProductManagerException e) {
+            e.printStackTrace();
+        }
     }
 
     public Product reviewProduct(Product product, Rating rating, String comments){
