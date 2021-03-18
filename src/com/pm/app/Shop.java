@@ -22,13 +22,16 @@ public class Shop {
 
         ProductManager pm = new ProductManager("en-US");
 
-        pm.createProduct(101,"Tea",BigDecimal.valueOf(1.99), Rating.NOT_RATED);
+//        pm.createProduct(101,"Tea",BigDecimal.valueOf(1.99), Rating.NOT_RATED);
+        pm.parseProduct("D,101,Tea,1.99,0,2019-09-19");
+//        pm.parseProduct("D,101,Tea,1.99,0");
+
         pm.printProductReport(101);
 
         pm.parseReview("101,4,Nice hot cup of tea");
         pm.parseReview("101,2,Rather weak tea");
         pm.parseReview("101,4,Fine tea");
-        pm.parseReview("101,x,Good tea");
+        pm.parseReview("101,4,Good tea");
         pm.parseReview("101,5,Perfect tea");
         pm.parseReview("101,3,Just add some lemon");
 
@@ -39,6 +42,11 @@ public class Shop {
         pm.reviewProduct(101, Rating.FIVE_STAR, "Perfect tea");
         pm.reviewProduct(101, Rating.THREE_STAR, "Just add some lemon");*/
         pm.printProductReport(101);
+
+        pm.parseProduct("F,103,Cake,3.99,0,2019-09-19");
+        pm.printProductReport(103);
+
+
 //
 ////        pm.changeLocale("ru-RU");
 //
