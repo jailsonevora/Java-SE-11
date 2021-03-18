@@ -3,6 +3,7 @@ package com.pm.data;
 import java.math.BigDecimal;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -135,7 +136,11 @@ public class ProductManager {
     }
 
     public void parseReview(String text){
-
+        try {
+            Object[] values = reviewFormat.parse(text);
+        } catch (ParseException e) {
+            logger.log(Level.WARNING, "Error parsing review"+text, e);
+        }
     }
 
     public Map<String, String> getDiscounts(){
