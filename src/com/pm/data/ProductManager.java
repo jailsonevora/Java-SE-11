@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
@@ -149,12 +150,25 @@ public class ProductManager {
         System.out.println(txt);
     }
     private List<Review> loadReviews(Product product){
+        List<Review> reviews = null;
         Path file = dataFolder.resolve(
                 MessageFormat.format(
                         config.getString("reviews.data.file"), product.getId()
                 )
         );
-
+        if(Files.notExists(file))
+            reviews = new ArrayList<>();
+        else{
+            try {
+                reviews = Files.lines(file, Charset.forName("UTF-8"))
+                        .map(text -> parseReview(text))
+                        .filter(review -> review != null)
+                        .collect(Collectors.toList());
+            } catch (IOException e) {
+                logger.log(Level.WARNING, "Error loading reviews "+e.getMessage() );
+            }
+        }
+        return reviews;
     }
 
     public Review parseReview(String text){
