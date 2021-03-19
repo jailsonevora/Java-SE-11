@@ -149,6 +149,30 @@ public class ProductManager {
         }*/
         System.out.println(txt);
     }
+
+    private void loadAllData(){
+        try {
+            products = Files.list(dataFolder)
+                    .filter(file -> file.getFileName().toString().startsWith("product"))
+                    .map(file -> loadProducts(file))
+                    .filter(product -> product != null)
+                    .collect(Collectors.toMap(product -> product,
+                            product -> loadReviews(product)));
+        }catch (IOException e){
+            logger.log(Level.SEVERE, "Error loading data"+e.getMessage(), e);
+        }
+    }
+
+    private Product loadProducts(Path file){
+        Product product = null;
+        try {
+            product = parseProduct(Files.lines(dataFolder.resolve(file), Charset.forName("UTF-8")).findFirst().orElseThrow());
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Error loading product"+e.getMessage());
+        }
+        return product;
+    }
+
     private List<Review> loadReviews(Product product){
         List<Review> reviews = null;
         Path file = dataFolder.resolve(
