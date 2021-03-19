@@ -1,7 +1,11 @@
 package com.pm.data;
 
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -101,20 +105,21 @@ public class ProductManager {
     }
     public void printProductReport(Product product){
         List<Review> reviews = products.get(product);
+        Collections.sort(reviews);
 //        StringBuilder txt = new StringBuilder();
         Path productFile = reportFolder.resolve(MessageFormat.format(config.getString("report.file"), product.getId()));
-        txt.append(formatter.formatProduct(product));
-        txt.append('\n');
-        Collections.sort(reviews);
-        if(reviews.isEmpty())
-            txt.append(formatter.getText("no.reviews") + '\n');
-        else {
-            txt.append(reviews.stream()
-                .map(r -> formatter.formatReview(r) + '\n')
-                    .collect(Collectors.joining())
-            );
+        try(PrintWriter out = new PrintWriter(new OutputStreamWriter(Files.newOutputStream(productFile, StandardOpenOption.CREATE), "UTF-8"))) {
+        out.append(formatter.formatProduct(product) + System.lineSeparator());
+            if(reviews.isEmpty())
+                out.append(formatter.getText("no.reviews") + System.lineSeparator());
+            else {
+                out.append(reviews.stream()
+                    .map(r -> formatter.formatReview(r) + System.lineSeparator())
+                        .collect(Collectors.joining())
+                );
+            }
+            //System.out.println(txt);
         }
-        System.out.println(txt);
     }
 
     public Product findProduct(int id) throws ProductManagerException {
