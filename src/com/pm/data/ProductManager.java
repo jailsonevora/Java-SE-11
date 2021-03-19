@@ -1,5 +1,6 @@
 package com.pm.data;
 
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
@@ -103,7 +104,7 @@ public class ProductManager {
             logger.log(Level.SEVERE, null, e);
         }
     }
-    public void printProductReport(Product product){
+    public void printProductReport(Product product) throws IOException {
         List<Review> reviews = products.get(product);
         Collections.sort(reviews);
         Path productFile = reportFolder.resolve(MessageFormat.format(config.getString("report.file"), product.getId()));
