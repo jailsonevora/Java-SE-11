@@ -1,6 +1,7 @@
 package com.pm.data;
 
 import java.math.BigDecimal;
+import java.nio.file.Path;
 import java.text.MessageFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -22,6 +23,11 @@ public class ProductManager {
     private ResourceBundle config = ResourceBundle.getBundle("com.pm.data.config");
     private MessageFormat reviewFormat = new MessageFormat(config.getString("review.data.format"));
     private MessageFormat productFormat = new MessageFormat(config.getString("product.data.format"));
+    private Path reportFolder = Path.of(config.getString("data.folder"));
+    private Path dataFolder = Path.of(config.getString("data.folder"));
+    private Path tempFolder = Path.of(config.getString("temp.folder"));
+
+
     private static Map<String, ResourceFormatter> formatters = Map.of("en-GB", new ResourceFormatter(Locale.UK),
             "en-US", new ResourceFormatter(Locale.US),
             "fr-FR", new ResourceFormatter(Locale.FRANCE),
@@ -95,7 +101,8 @@ public class ProductManager {
     }
     public void printProductReport(Product product){
         List<Review> reviews = products.get(product);
-        StringBuilder txt = new StringBuilder();
+//        StringBuilder txt = new StringBuilder();
+        Path productFile = reportFolder.resolve(MessageFormat.format(config.getString("report.file"), product.getId()));
         txt.append(formatter.formatProduct(product));
         txt.append('\n');
         Collections.sort(reviews);
