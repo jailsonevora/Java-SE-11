@@ -22,11 +22,19 @@ public class Shop {
 
         ProductManager pm = new ProductManager("en-US");
 
+        pm.createProduct(164,"Kombucha",BigDecimal.valueOf(1.99), Rating.NOT_RATED);
+        pm.reviewProduct(164, Rating.TWO_STAR, "Looks like tea but is it?");
+        pm.reviewProduct(164, Rating.FOUR_STAR, "Fine tea");
+        pm.reviewProduct(164, Rating.FOUR_STAR, "This is not a tea");
+        pm.reviewProduct(164, Rating.FIVE_STAR, "Perfect");
+        pm.printProductReport(164);
+
+
 //        pm.createProduct(101,"Tea",BigDecimal.valueOf(1.99), Rating.NOT_RATED);
 //        pm.parseProduct("D,101,Tea,1.99,0,2019-09-19");
 //        pm.parseProduct("D,101,Tea,1.99,0");
 
-        pm.printProductReport(101);
+//        pm.printProductReport(101);
 
 //        pm.parseReview("101,4,Nice hot cup of tea");
 //        pm.parseReview("101,2,Rather weak tea");
@@ -43,7 +51,7 @@ public class Shop {
         pm.reviewProduct(101, Rating.THREE_STAR, "Just add some lemon");*/
         pm.printProductReport(101);
 
-        pm.parseProduct("F,103,Cake,3.99,0,2019-09-19");
+//        pm.parseProduct("F,103,Cake,3.99,0,2019-09-19");
         pm.printProductReport(103);
 
 
