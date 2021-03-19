@@ -148,6 +148,14 @@ public class ProductManager {
         }*/
         System.out.println(txt);
     }
+    private List<Review> loadReviews(Product product){
+        Path file = dataFolder.resolve(
+                MessageFormat.format(
+                        config.getString("reviews.data.file"), product.getId()
+                )
+        );
+
+    }
 
     public Review parseReview(String text){
         Review review = null;
