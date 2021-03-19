@@ -1,5 +1,6 @@
 package com.pm.data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -15,7 +16,7 @@ import static java.math.RoundingMode.HALF_UP;
  * @version 4.0
  * @author Sangha
  */
-public abstract class Product implements Rateable<Product>{
+public abstract class Product implements Rateable<Product>, Serializable {
 
     /**
      * A constant that defines a

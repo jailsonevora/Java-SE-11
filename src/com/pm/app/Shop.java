@@ -21,13 +21,21 @@ public class Shop {
     public static void main(String[] args){
 
         ProductManager pm = new ProductManager("en-US");
-
+//        pm.printProductReport(101);
         pm.createProduct(164,"Kombucha",BigDecimal.valueOf(1.99), Rating.NOT_RATED);
         pm.reviewProduct(164, Rating.TWO_STAR, "Looks like tea but is it?");
         pm.reviewProduct(164, Rating.FOUR_STAR, "Fine tea");
         pm.reviewProduct(164, Rating.FOUR_STAR, "This is not a tea");
         pm.reviewProduct(164, Rating.FIVE_STAR, "Perfect");
+//        pm.printProductReport(164);
+//        pm.dumpData();
+//        pm.restoreData();
+        pm.printProductReport(105);
         pm.printProductReport(164);
+        pm.printProducts(p -> p.getPrice().floatValue() < 2,
+                (p1,p2) -> p2.getRating().ordinal() - p1.getRating().ordinal());
+        pm.getDiscounts().forEach((rating, discount) -> System.out.println(rating + "\t" + discount));
+
 
 
 //        pm.createProduct(101,"Tea",BigDecimal.valueOf(1.99), Rating.NOT_RATED);
@@ -49,10 +57,10 @@ public class Shop {
         pm.reviewProduct(101, Rating.FOUR_STAR, "Good tea");
         pm.reviewProduct(101, Rating.FIVE_STAR, "Perfect tea");
         pm.reviewProduct(101, Rating.THREE_STAR, "Just add some lemon");*/
-        pm.printProductReport(101);
+//        pm.printProductReport(101);
 
 //        pm.parseProduct("F,103,Cake,3.99,0,2019-09-19");
-        pm.printProductReport(103);
+//        pm.printProductReport(103);
 
 
 //
