@@ -29,7 +29,7 @@ public class ProductManager {
     private ResourceBundle config = ResourceBundle.getBundle("com.pm.data.config");
     private MessageFormat reviewFormat = new MessageFormat(config.getString("review.data.format"));
     private MessageFormat productFormat = new MessageFormat(config.getString("product.data.format"));
-    private Path reportFolder = Path.of(config.getString("data.folder"));
+    private Path reportFolder = Path.of(config.getString("reports.folder"));
     private Path dataFolder = Path.of(config.getString("data.folder"));
     private Path tempFolder = Path.of(config.getString("temp.folder"));
 
