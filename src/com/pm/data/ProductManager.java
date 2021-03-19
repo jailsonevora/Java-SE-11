@@ -149,13 +149,15 @@ public class ProductManager {
         System.out.println(txt);
     }
 
-    public void parseReview(String text){
+    public Review parseReview(String text){
+        Review review = null;
         try {
             Object[] values = reviewFormat.parse(text);
-            reviewProduct(Integer.parseInt((String) values[0]), Rateable.convert(Integer.parseInt((String)values[1])), (String)values[2]);
+            review = new Review(Rateable.convert(Integer.parseInt((String)values[0])), (String)values[1]);
         } catch (ParseException | NumberFormatException e) {
             logger.log(Level.WARNING, "Error parsing review"+text);
         }
+        return review;
     }
 
     public void parseProduct(String text){
