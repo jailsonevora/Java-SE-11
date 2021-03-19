@@ -103,7 +103,7 @@ public class ProductManager {
         } catch (ProductManagerException e) {
             logger.log(Level.SEVERE, null, e);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Error printing product report "+e.getMessage(), e);
         }
     }
     public void printProductReport(Product product) throws IOException {
