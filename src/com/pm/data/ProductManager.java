@@ -49,6 +49,7 @@ public class ProductManager {
 
     public ProductManager(String languageTag) {
         changeLocale(languageTag);
+        loadAllData();
     }
 
     public void changeLocale(String languageTag){
@@ -195,7 +196,7 @@ public class ProductManager {
         return reviews;
     }
 
-    public Review parseReview(String text){
+    private Review parseReview(String text){
         Review review = null;
         try {
             Object[] values = reviewFormat.parse(text);
@@ -206,7 +207,7 @@ public class ProductManager {
         return review;
     }
 
-    public Product parseProduct(String text){
+    private Product parseProduct(String text){
         Product product = null;
         try {
             Object[] values = productFormat.parse(text);
