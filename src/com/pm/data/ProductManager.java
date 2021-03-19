@@ -102,6 +102,8 @@ public class ProductManager {
             printProductReport(findProduct(id));
         } catch (ProductManagerException e) {
             logger.log(Level.SEVERE, null, e);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     public void printProductReport(Product product) throws IOException {
