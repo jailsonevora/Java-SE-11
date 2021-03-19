@@ -106,10 +106,9 @@ public class ProductManager {
     public void printProductReport(Product product){
         List<Review> reviews = products.get(product);
         Collections.sort(reviews);
-//        StringBuilder txt = new StringBuilder();
         Path productFile = reportFolder.resolve(MessageFormat.format(config.getString("report.file"), product.getId()));
         try(PrintWriter out = new PrintWriter(new OutputStreamWriter(Files.newOutputStream(productFile, StandardOpenOption.CREATE), "UTF-8"))) {
-        out.append(formatter.formatProduct(product) + System.lineSeparator());
+            out.append(formatter.formatProduct(product) + System.lineSeparator());
             if(reviews.isEmpty())
                 out.append(formatter.getText("no.reviews") + System.lineSeparator());
             else {
@@ -118,7 +117,6 @@ public class ProductManager {
                         .collect(Collectors.joining())
                 );
             }
-            //System.out.println(txt);
         }
     }
 
