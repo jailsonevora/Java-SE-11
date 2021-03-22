@@ -20,7 +20,7 @@ public class Shop {
      */
     public static void main(String[] args){
 
-        ProductManager pm = new ProductManager.getInstance();
+        ProductManager pm = ProductManager.getInstance();
         pm.printProductReport(101, "en-US");
         pm.printProductReport(103, "en-GB");
 
