@@ -41,6 +41,11 @@ public class ProductManager {
             );
 
     private static final Logger logger = Logger.getLogger(ProductManager.class.getName());
+    private static final ProductManager pm = new ProductManager();
+
+    public static ProductManager getInstance(){
+        return pm;
+    }
 
 //    public ProductManager(Locale locale) {
 //        this(locale.toLanguageTag());
