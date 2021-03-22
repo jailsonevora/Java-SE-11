@@ -7,11 +7,10 @@ import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -56,6 +55,19 @@ public class Shop {
 
         List<Callable<String>> clients = Stream.generate(()-> client).limit(5).collect(Collectors.toList());
         ExecutorService executorService = Executors.newFixedThreadPool(3);
+        try {
+            List<Future<String>> results = executorService.invokeAll(clients);
+            executorService.shutdown();
+            results.stream().forEach(result->{
+                try {
+                    System.out.println(result.get());
+                } catch (InterruptedException | ExecutionException e) {
+                    Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, null, e);
+                }
+            });
+        } catch (InterruptedException e) {
+            Logger.getLogger(Shop.class.getName()).log(Level.SEVERE, "Error invoking clients", e);
+        }
 
 //        pm.printProductReport(101, "en-US");
 //        pm.printProductReport(103, "en-GB");
