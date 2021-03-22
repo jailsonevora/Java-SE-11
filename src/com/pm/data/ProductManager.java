@@ -142,10 +142,6 @@ public class ProductManager {
                 .sorted(sorter)
                 .filter(filter)
                 .forEach(p -> txt.append(formatter.formatProduct(p) + '\n'));
-        /*for (Product product : productList) {
-            txt.append(formatter.formatProduct(product));
-            txt.append("\n");
-        }*/
         System.out.println(txt);
     }
 
