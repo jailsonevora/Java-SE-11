@@ -145,7 +145,7 @@ public class ProductManager {
         ResourceFormatter formatter = formatters.getOrDefault(languageTag, formatters.get("en-GB"));
         List<Review> reviews = products.get(product);
         Collections.sort(reviews);
-        Path productFile = reportFolder.resolve(MessageFormat.format(config.getString("report.file"), product.getId()));
+        Path productFile = reportFolder.resolve(MessageFormat.format(config.getString("report.file"), product.getId(), client));
         try(PrintWriter out = new PrintWriter(new OutputStreamWriter(Files.newOutputStream(productFile, StandardOpenOption.CREATE), "UTF-8"))) {
             out.append(formatter.formatProduct(product) + System.lineSeparator());
             if(reviews.isEmpty())
@@ -175,14 +175,20 @@ public class ProductManager {
     }
 
     public void printProducts(Predicate<Product> filter, Comparator<Product> sorter, String languageTag){
-        ResourceFormatter formatter = formatters.getOrDefault(languageTag, formatters.get("en-GB"));
-        StringBuilder txt = new StringBuilder();
-        products.keySet()
-                .stream()
-                .sorted(sorter)
-                .filter(filter)
-                .forEach(p -> txt.append(formatter.formatProduct(p) + '\n'));
-        System.out.println(txt);
+        try {
+            readLock.lock();
+            ResourceFormatter formatter = formatters.getOrDefault(languageTag, formatters.get("en-GB"));
+            StringBuilder txt = new StringBuilder();
+            products.keySet()
+                    .stream()
+                    .sorted(sorter)
+                    .filter(filter)
+                    .forEach(p -> txt.append(formatter.formatProduct(p) + '\n'));
+            System.out.println(txt);
+        }finally {
+            readLock.unlock();
+        }
+
     }
 
     private void loadAllData(){
@@ -295,17 +301,22 @@ public class ProductManager {
     }
 
     public Map<String, String> getDiscounts(String languageTag){
-        ResourceFormatter formatter = formatters.getOrDefault(languageTag, formatters.get("en-GB"));
-        return products.keySet()
-                .stream()
-                .collect(
-                        Collectors.groupingBy(
-                                product -> product.getRating().getStars(),
-                                Collectors.collectingAndThen(
-                                                Collectors.summingDouble(
-                                                        product -> product.getDiscount().doubleValue()
-                                                ),
-                                        discount -> formatter.moneyFormat.format(discount))));
+        try {
+            readLock.lock();
+            ResourceFormatter formatter = formatters.getOrDefault(languageTag, formatters.get("en-GB"));
+            return products.keySet()
+                    .stream()
+                    .collect(
+                            Collectors.groupingBy(
+                                    product -> product.getRating().getStars(),
+                                    Collectors.collectingAndThen(
+                                                    Collectors.summingDouble(
+                                                            product -> product.getDiscount().doubleValue()
+                                                    ),
+                                            discount -> formatter.moneyFormat.format(discount))));
+        }finally {
+            readLock.unlock();
+        }
     }
 
     private static class ResourceFormatter{

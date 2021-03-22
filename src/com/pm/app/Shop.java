@@ -6,6 +6,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.Locale;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * {@code Shop} class represents an application that manages Products
@@ -19,8 +23,30 @@ public class Shop {
      * @param args the command line arguments
      */
     public static void main(String[] args){
-
         ProductManager pm = ProductManager.getInstance();
+
+        AtomicInteger clientCount = new AtomicInteger();
+        Callable<String> client = () -> {
+            String clientId = "Client "+ clientCount.incrementAndGet();
+            String threadName = Thread.currentThread().getName();
+            int productId = ThreadLocalRandom.current().nextInt(63)+101;
+            String languageTag = ProductManager.getSupportedLocales()
+                    .stream()
+                    .skip(ThreadLocalRandom.current().nextInt(4))
+                    .findFirst().get();
+            StringBuilder log = new StringBuilder();
+            log.append(clientId+" "+threadName+"\n-\tstart of log\t-\n");
+            log.append(pm.getDiscounts(languageTag)
+            .entrySet()
+                    .stream()
+                    .map(entry -> entry.getKey() + "\t" + entry.getValue())
+                    .collect(Collectors.joining("\n"))
+            );
+
+            log.append("\n-\tend of log\t-\n");
+            return log.toString();
+        };
+
         pm.printProductReport(101, "en-US");
         pm.printProductReport(103, "en-GB");
 
