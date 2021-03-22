@@ -111,7 +111,7 @@ public class ProductManager {
         }
     }
 
-    public Product reviewProduct(Product product, Rating rating, String comments){
+    private Product reviewProduct(Product product, Rating rating, String comments){
         List<Review> reviews = products.get(product);
         products.remove(product, reviews);
         reviews.add(new Review(rating, comments));
