@@ -5,11 +5,15 @@ import com.pm.data.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * {@code Shop} class represents an application that manages Products
@@ -44,13 +48,17 @@ public class Shop {
             );
             Product product = pm.reviewProduct(productId, Rating.FOUR_STAR, "Yet another review");
             log.append((product != null) ? "\nProduct "+productId+" reviewed\n" : "\nProduct "+productId" not reviewed\n");
-
+            pm.printProductReport(productId, languageTag, clientId);
+            log.append(clientId+" generated report for "+productId+" product");
             log.append("\n-\tend of log\t-\n");
             return log.toString();
         };
 
-        pm.printProductReport(101, "en-US");
-        pm.printProductReport(103, "en-GB");
+        List<Callable<String>> clients = Stream.generate(()-> client).limit(5).collect(Collectors.toList());
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+
+//        pm.printProductReport(101, "en-US");
+//        pm.printProductReport(103, "en-GB");
 
 //        pm.createProduct(164,"Kombucha",BigDecimal.valueOf(1.99), Rating.NOT_RATED);
 //        pm.reviewProduct(164, Rating.TWO_STAR, "Looks like tea but is it?");
