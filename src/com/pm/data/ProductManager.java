@@ -129,16 +129,19 @@ public class ProductManager {
         return product;
     }
 
-    public void printProductReport(int id, String languageTag){
+    public void printProductReport(int id, String languageTag, String client){
         try {
-            printProductReport(findProduct(id),languageTag);
+            readLock.lock();
+            printProductReport(findProduct(id),languageTag, client);
         } catch (ProductManagerException e) {
             logger.log(Level.SEVERE, null, e);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Error printing product report "+e.getMessage(), e);
+        }finally {
+            readLock.unlock();
         }
     }
-    public void printProductReport(Product product, String languageTag) throws IOException {
+    public void printProductReport(Product product, String languageTag, String client) throws IOException {
         ResourceFormatter formatter = formatters.getOrDefault(languageTag, formatters.get("en-GB"));
         List<Review> reviews = products.get(product);
         Collections.sort(reviews);
