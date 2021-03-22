@@ -134,7 +134,9 @@ public class ProductManager {
                 //.get();
     }
 
-    public void printProducts(Predicate<Product> filter, Comparator<Product> sorter){
+    public void printProducts(Predicate<Product> filter, Comparator<Product> sorter, String languageTag){
+        ResourceFormatter formatter = formatters.getOrDefault(languageTag, formatters.get("en-GB"));
+
         /*List<Product> productList = new ArrayList<>(products.keySet());
         productList.sort(sorter);*/
         StringBuilder txt = new StringBuilder();
@@ -259,7 +261,8 @@ public class ProductManager {
         return product;
     }
 
-    public Map<String, String> getDiscounts(){
+    public Map<String, String> getDiscounts(String languageTag){
+        ResourceFormatter formatter = formatters.getOrDefault(languageTag, formatters.get("en-GB"));
         return products.keySet()
                 .stream()
                 .collect(
