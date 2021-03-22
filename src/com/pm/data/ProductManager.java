@@ -42,18 +42,18 @@ public class ProductManager {
 
     private static final Logger logger = Logger.getLogger(ProductManager.class.getName());
 
-    public ProductManager(Locale locale) {
-        this(locale.toLanguageTag());
-    }
+//    public ProductManager(Locale locale) {
+//        this(locale.toLanguageTag());
+//    }
 
-    public ProductManager(String languageTag) {
-        changeLocale(languageTag);
+    public ProductManager() {
+//        changeLocale(languageTag);
         loadAllData();
     }
 
-    public void changeLocale(String languageTag){
-        formatter = formatters.getOrDefault(languageTag,formatters.get("en-GB"));
-    }
+//    public void changeLocale(String languageTag){
+//        formatter = formatters.getOrDefault(languageTag,formatters.get("en-GB"));
+//    }
 
     public static Set<String> getSupportedLocales(){
         return formatters.keySet();
