@@ -107,7 +107,8 @@ public class ProductManager {
             logger.log(Level.SEVERE, "Error printing product report "+e.getMessage(), e);
         }
     }
-    public void printProductReport(Product product) throws IOException {
+    public void printProductReport(Product product, , String languageTag) throws IOException {
+        ResourceFormatter formatter = formatters.getOrDefault(languageTag, formatters.get("en-GB"));
         List<Review> reviews = products.get(product);
         Collections.sort(reviews);
         Path productFile = reportFolder.resolve(MessageFormat.format(config.getString("report.file"), product.getId()));
