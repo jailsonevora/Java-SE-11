@@ -136,9 +136,6 @@ public class ProductManager {
 
     public void printProducts(Predicate<Product> filter, Comparator<Product> sorter, String languageTag){
         ResourceFormatter formatter = formatters.getOrDefault(languageTag, formatters.get("en-GB"));
-
-        /*List<Product> productList = new ArrayList<>(products.keySet());
-        productList.sort(sorter);*/
         StringBuilder txt = new StringBuilder();
         products.keySet()
                 .stream()
