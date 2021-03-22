@@ -15,6 +15,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.FormatStyle;
 import java.util.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +44,9 @@ public class ProductManager {
 
     private static final Logger logger = Logger.getLogger(ProductManager.class.getName());
     private static final ProductManager pm = new ProductManager();
+    private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+    private final Lock writeLock = lock.writeLock();
+    private final Lock readLock = lock.readLock();
 
     public static ProductManager getInstance(){
         return pm;
@@ -65,24 +70,45 @@ public class ProductManager {
     }
 
     public Product createProduct(int id, String name, BigDecimal price, Rating rating, LocalDate bestBefore){
-        Product product = new Food(id,name,price, rating, bestBefore);
-        products.putIfAbsent(product, new ArrayList<>());
+        Product product = null;
+        try {
+            writeLock.lock();
+            product = new Food(id,name,price, rating, bestBefore);
+            products.putIfAbsent(product, new ArrayList<>());
+        }catch (Exception ex){
+            logger.log(Level.INFO, "Error adding product" + ex.getMessage());
+            return null;
+        }finally {
+            writeLock.unlock();
+        }
         return product;
     }
 
     public Product createProduct(int id, String name, BigDecimal price, Rating rating){
-        Product product = new Drink(id,name,price, rating);
-        products.putIfAbsent(product, new ArrayList<>());
+        Product product = null;
+        try {
+            writeLock.lock();
+            product = new Drink(id,name,price, rating);
+            products.putIfAbsent(product, new ArrayList<>());
+        }catch (Exception ex){
+            logger.log(Level.INFO, "Error adding product" + ex.getMessage());
+            return null;
+        }finally {
+            writeLock.unlock();
+        }
         return product;
     }
 
     public Product reviewProduct(int id, Rating rating, String comments){
         try {
+            writeLock.lock();
             return reviewProduct(findProduct(id), rating, comments);
         } catch (ProductManagerException e) {
             logger.log(Level.INFO, e.getMessage());
+            return null;
+        }finally {
+            writeLock.unlock();
         }
-        return null;
     }
 
     public Product reviewProduct(Product product, Rating rating, String comments){
@@ -131,13 +157,18 @@ public class ProductManager {
     }
 
     public Product findProduct(int id) throws ProductManagerException {
-        return products.keySet()
-                .stream()
-                .filter(p -> p.getId() == id)
-                .findFirst()
-                .orElseThrow(() -> new ProductManagerException("Product with id "+id+" not found"));
-                //.orElseGet(() -> null)
-                //.get();
+        try {
+            readLock.lock();
+            return products.keySet()
+                    .stream()
+                    .filter(p -> p.getId() == id)
+                    .findFirst()
+                    .orElseThrow(() -> new ProductManagerException("Product with id "+id+" not found"));
+                    //.orElseGet(() -> null)
+                    //.get();
+        }finally {
+            readLock.unlock();
+        }
     }
 
     public void printProducts(Predicate<Product> filter, Comparator<Product> sorter, String languageTag){
