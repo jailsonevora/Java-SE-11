@@ -46,7 +46,7 @@ public class Shop {
                     .collect(Collectors.joining("\n"))
             );
             Product product = pm.reviewProduct(productId, Rating.FOUR_STAR, "Yet another review");
-            log.append((product != null) ? "\nProduct "+productId+" reviewed\n" : "\nProduct "+productId" not reviewed\n");
+            log.append((product != null) ? "\nProduct "+productId+" reviewed\n" : "\nProduct "+productId+" not reviewed\n");
             pm.printProductReport(productId, languageTag, clientId);
             log.append(clientId+" generated report for "+productId+" product");
             log.append("\n-\tend of log\t-\n");
