@@ -1,4 +1,4 @@
 
 module com.pm{
-    requires
+    requires java.logging;
 }
